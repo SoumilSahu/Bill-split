@@ -1,3 +1,4 @@
-Type Person1 Person2 Person3 Person4 
-Cab 400 -100 -100 -200 
-Food -250 400 -200 50  
+Type Payer Amt P1 P2 P3 P4 
+Cab P1 500 100 100 100 200 
+Food P2 700 200 400 50 50  
+Clothes P4 1000 e e e 0
