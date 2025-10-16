@@ -128,3 +128,8 @@ def split(file_path = 'values.dat'):
     '''
     for i in list(Trans.keys()):
         print(f'{i} : {Trans[i]}\n')
+
+'''
+Run the script for the local stored values.dat file for the script to run directly from a terminal
+'''
+split()
