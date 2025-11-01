@@ -45,13 +45,13 @@ in which owed amounts are entered.
 How to use the code:
 .....................................................
 
-In the runnning directory make a file of name "file_name.dat" and enter the transaction values according to the prescription 
+In the running directory make a file of name "file_name.dat" and enter the transaction values according to the prescription 
 mentioned above.
 
 Open a python terminal, and import the function split from module bill_split:
 
-from bill_split import split
+    >> from bill_split import split
 
 Now run the following line:
 
-split("file_name.dat")
+    >> split("file_name.dat")
