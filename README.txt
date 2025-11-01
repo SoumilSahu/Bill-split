@@ -50,7 +50,7 @@ mentioned above.
 
 Open a python terminal, and import the function split from module bill_split:
 
-import split from bill_split
+from bill_split import split
 
 Now run the following line:
 
