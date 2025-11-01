@@ -132,4 +132,4 @@ def split(file_path = 'values.dat'):
 '''
 Run the script for the local stored values.dat file for the script to run directly from a terminal
 '''
-split()
+#split()
