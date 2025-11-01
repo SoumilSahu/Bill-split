@@ -40,3 +40,18 @@ Clothes P4 900 e e e 0
 
 Note: Spelling of names should be consistent, and take care of the order 
 in which owed amounts are entered. 
+
+.....................................................
+How to use the code:
+.....................................................
+
+In the runnning directory make a file of name "file_name.dat" and enter the transaction values according to the prescription 
+mentioned above.
+
+Open a python terminal, and import the function split from module bill_split:
+
+import split from bill_split
+
+Now run the following line:
+
+split("file_name.dat")
