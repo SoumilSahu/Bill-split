@@ -40,7 +40,7 @@ def split(file_path = 'values.dat'):
     All = {} 
     for i in range(len(line[0])-3):
         All[line[0][i+3]]=0.0
-
+    
     '''
     Update the 'paid' value from each transaction
     '''
@@ -48,10 +48,10 @@ def split(file_path = 'values.dat'):
         payer = line[i][1] #payer name
         amt = line[i][2] #paid amount
         if payer in All.keys():
-            All[payer] = float(amt)
+            All[payer] += float(amt)
         else:
             raise ValueError(f'Payer \'{payer}\' not found list of people, please check spelling (case sensitive).')
-
+    
     '''
     Update owed values
     '''
@@ -69,7 +69,7 @@ def split(file_path = 'values.dat'):
             for i in range(3,len(line[0])):
                 pers = line[0][i]
                 All[pers] -= float(line[j][i])
-
+    
     '''
     Separate into givers and takers
     '''
@@ -83,13 +83,13 @@ def split(file_path = 'values.dat'):
             Givers[persons[i]] = abs(All[persons[i]])
         else:
             continue
-
+    
     '''
     Sort the dictionaries 
     '''
     Givers_ = sort_dict(Givers)
     Takers_ = sort_dict(Takers)
-
+    
     '''
     Consistency check
     '''
@@ -97,7 +97,7 @@ def split(file_path = 'values.dat'):
     take_tot = sum(list(Takers_.values()))
     if give_tot != take_tot:
         raise ValueError('There is a mismatch in give and take balance, please check enteries.')
-
+    
     '''
     Iterate through each 'giver' and note transactions.
     The smallest giver starts by giving to takers in increasing order of
@@ -122,7 +122,7 @@ def split(file_path = 'values.dat'):
                 Takers_[Tak_names[taker_idx]] -= val
                 debt = Givers_[Giv_names[i]]
                 taker_idx += 1
-
+    
     '''
     Print the final transactions
     '''
@@ -132,4 +132,4 @@ def split(file_path = 'values.dat'):
 '''
 Run the script for the local stored values.dat file for the script to run directly from a terminal
 '''
-# split()
+split()
