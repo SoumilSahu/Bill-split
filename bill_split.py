@@ -95,7 +95,7 @@ def split(file_path = 'values.dat'):
     '''
     give_tot = sum(list(Givers_.values()))
     take_tot = sum(list(Takers_.values()))
-    if give_tot != take_tot:
+    if int(give_tot*100) != int(take_tot*100):
         raise ValueError('There is a mismatch in give and take balance, please check enteries.')
     
     '''
@@ -127,7 +127,7 @@ def split(file_path = 'values.dat'):
     Print the final transactions
     '''
     for i in list(Trans.keys()):
-        print(f'{i} : {Trans[i]}\n')
+        print(f'{i} : {round(Trans[i],2)}\n')
 
 '''
 Run the script for the local stored values.dat file for the script to run directly from a terminal
