@@ -11,6 +11,7 @@ file.
 Importing necessary stuff
 '''
 import numpy as np
+from copy import deepcopy
 
 '''
 Defining functions
@@ -51,7 +52,8 @@ def split(file_path = 'values.dat'):
             All[payer] += float(amt)
         else:
             raise ValueError(f'Payer \'{payer}\' not found list of people, please check spelling (case sensitive).')
-    
+    Expend = deepcopy(All) #To be updated later to get net expenses
+
     '''
     Update owed values
     '''
@@ -74,8 +76,8 @@ def split(file_path = 'values.dat'):
     Separate into givers and takers
     '''
     persons = list(All.keys())
-    Givers = {}
-    Takers = {}
+    Givers = {} #make givers dictionary
+    Takers = {} #make takers dictionary
     for i in range(len(persons)):
         if All[persons[i]] > 0:
             Takers[persons[i]] = All[persons[i]]
@@ -99,15 +101,24 @@ def split(file_path = 'values.dat'):
         raise ValueError('There is a mismatch in give and take balance, please check enteries.')
     
     '''
+    Update the 'Expend' dictionary to record net expenditures
+    '''
+    Giv_names = list(Givers_.keys())
+    Tak_names = list(Takers_.keys())
+    for i in range(len(Giv_names)):
+        name = Giv_names[i]
+        Expend[name] += Givers_[name] 
+    for i in range(len(Tak_names)):
+        name = Tak_names[i]
+        Expend[name] -= Takers_[name]
+    
+    '''
     Iterate through each 'giver' and note transactions.
     The smallest giver starts by giving to takers in increasing order of
     amount.
     Then we go to the next smallest giver and so on.
     '''
     Trans = {}
-    Giv_names = list(Givers_.keys())
-    Tak_names = list(Takers_.keys())
-
     for i in range(len(Giv_names)):
         debt = Givers_[Giv_names[i]]
         # print(debt)
@@ -126,10 +137,21 @@ def split(file_path = 'values.dat'):
     '''
     Print the final transactions
     '''
+    print("\nThe simplified transactions are as follows:\n")
     for i in list(Trans.keys()):
-        print(f'{i} : {round(Trans[i],2)}\n')
+        print(f'{i} : {round(Trans[i],2)}')
+    print('\n')
+
+    '''
+    Print per person expenses
+    '''
+    print("Net expenditure of each person is as follows:\n")
+    for i in list(Expend.keys()):
+        print(f'{i} : {round(Expend[i],2)}')
+    print('\n')
+
 
 '''
-Run the script for the local stored values.dat file for the script to run directly from a terminal
+Run the script for the local stored .dat file for the script to run directly from a terminal
 '''
 #split()
