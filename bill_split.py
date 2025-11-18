@@ -46,12 +46,15 @@ def split(file_path = 'values.dat'):
     Update the 'paid' value from each transaction
     '''
     for i in range(1,len(line)):
-        payer = line[i][1] #payer name
-        amt = line[i][2] #paid amount
-        if payer in All.keys():
-            All[payer] += float(amt)
-        else:
-            raise ValueError(f'Payer \'{payer}\' not found list of people, please check spelling (case sensitive).')
+        payers = line[i][1].split(',') #payer names
+        amts = line[i][2].split(',') #paid amounts
+        for j in range(len(payers)):
+            payer = payers[j]
+            amt = amts[j]
+            if payer in All.keys():
+                All[payer] += float(amt)
+            else:
+                raise ValueError(f'Payer \'{payer}\' not found list of people, please check spelling (case sensitive).')
     Expend = deepcopy(All) #To be updated later to get net expenses
 
     '''
@@ -60,9 +63,10 @@ def split(file_path = 'values.dat'):
     for j in range(1,len(line)):
         if 'e' in line[j]:
             num_e = line[j].count('e') #number of time 'e' occurs
-            eq_amt = round(float(line[j][2])/num_e,2) #the equal split amount, rounded to 2 decimal places
+            amt = np.sum(np.array(line[j][2].split(','),dtype=float))
+            eq_amt = round(amt/num_e,2) #the equal split amount, rounded to 2 decimal places
             
-            remain = float(line[j][2]) - eq_amt*num_e   # This is the missing paisa in case of round off error
+            remain = amt - eq_amt*num_e   # This is the missing paisa in case of round off error
             bakra = np.random.randint(0,num_e)   # This is the index of the unfortunate person
             bakra_indx = 0
             
