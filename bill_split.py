@@ -60,11 +60,19 @@ def split(file_path = 'values.dat'):
     for j in range(1,len(line)):
         if 'e' in line[j]:
             num_e = line[j].count('e') #number of time 'e' occurs
-            eq_amt = float(line[j][2])/num_e #the equal split amount
+            eq_amt = round(float(line[j][2])/num_e,2) #the equal split amount, rounded to 2 decimal places
+            
+            remain = float(line[j][2]) - eq_amt*num_e   # This is the missing paisa in case of round off error
+            bakra = np.random.randint(0,num_e)   # This is the index of the unfortunate person
+            bakra_indx = 0
+            
             for i in range(3,len(line[0])):
                 pers = line[0][i]
                 if line[j][i] == 'e':
                     All[pers] -= eq_amt
+                    if bakra_indx == bakra:
+                        All[pers] -= remain
+                    bakra_indx += 1
                 else:
                     All[pers] -= float(line[j][i])
         else:
