@@ -83,6 +83,15 @@ def split(file_path = 'values.dat'):
             for i in range(3,len(line[0])):
                 pers = line[0][i]
                 All[pers] -= float(line[j][i])
+
+    '''
+    Another check to keep values upto 2 decimals only
+    '''
+
+    for i in range(3,len(line[0])):
+        pers = line[0][i]
+        val = All[pers]
+        All[pers] = round(val,2)
     
     '''
     Separate into givers and takers
