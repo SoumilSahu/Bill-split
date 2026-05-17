@@ -144,7 +144,7 @@ def split(file_path = 'values.dat'):
         debt = Givers_[Giv_names[i]]
         # print(debt)
         taker_idx = 0
-        while debt != 0.0:
+        while np.round(debt,2) != 0.0:
             if Takers_[Tak_names[taker_idx]] == 0.0:
                 taker_idx += 1
             else:
